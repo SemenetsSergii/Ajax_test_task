@@ -1,10 +1,13 @@
 def read_file_lines(file_path):
     """
-    Reads all lines from a file and returns a list of lines.
+    Generator for reading lines from a file.
+    Processes one line at a time to handle large files efficiently.
     """
     try:
         with open(file_path, "r") as file:
-            return file.readlines()
+            for line in file:
+                yield line
+
     except FileNotFoundError:
         print(f"Error: File {file_path} not found.")
         return []
@@ -34,8 +37,7 @@ def analyze_logs(file_logs_path):
     successful_devices = {}
     failed_devices = set()
 
-    lines = read_file_lines(file_logs_path)
-    for line in lines:
+    for line in read_file_lines(file_logs_path):
         if "BIG" not in line:
             continue
 
@@ -79,8 +81,7 @@ def analyze_failed_sensors(file_logs_path, failed_devices):
         3: "Threshold central error",
     }
 
-    lines = read_file_lines(file_logs_path)
-    for line in lines:
+    for line in read_file_lines(file_logs_path):
         if "BIG" not in line or "DD" not in line:
             continue
 
