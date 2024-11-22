@@ -32,7 +32,8 @@ def parse_log_line(line):
 
 def analyze_logs(file_logs_path):
     """
-    Analyzes the log file, determines the number of successful and failed sensors.
+    Analyzes the log file, determines the
+    number of successful and failed sensors.
     """
     successful_devices = {}
     failed_devices = set()
